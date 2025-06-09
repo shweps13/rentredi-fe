@@ -24,7 +24,7 @@ export default function UserList() {
         try {
             const data = await userService.getAllUsers();
             setUsers(data);
-        } catch (error) {
+        } catch (_error) {
             toast.error('Failed to load users');
         }
     };
@@ -35,7 +35,7 @@ export default function UserList() {
                 await userService.deleteUser(id);
                 toast.success('User deleted successfully');
                 loadUsers();
-            } catch (error) {
+            } catch (_error) {
                 toast.error('Failed to delete user');
             }
         }
@@ -62,7 +62,7 @@ export default function UserList() {
             }
             setIsFormOpen(false);
             loadUsers();
-        } catch (error) {
+        } catch (_error) {
             toast.error(editingUser ? 'Failed to update user' : 'Failed to create user');
         }
     };
@@ -79,7 +79,10 @@ export default function UserList() {
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                     <button
                         onClick={handleCreate}
-                        className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+                        className="inline-flex items-center justify-center rounded-md border border-transparent 
+                                 bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm 
+                                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 
+                                 focus:ring-offset-2 sm:w-auto transition-colors duration-200 cursor-pointer"
                     >
                         Add user
                     </button>
@@ -105,7 +108,7 @@ export default function UserList() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {users.map((user) => (
-                                        <tr key={user.id}>
+                                        <tr key={user.id} className="hover:bg-gray-50 transition-colors duration-150">
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900">{user.name}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.zip}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.latitude}</td>
@@ -114,13 +117,19 @@ export default function UserList() {
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                 <button
                                                     onClick={() => handleEdit(user)}
-                                                    className="text-indigo-600 hover:text-indigo-900 mr-4"
+                                                    className="text-indigo-600 hover:text-indigo-900 cursor-pointer 
+                                                             transition-colors duration-200 p-2 rounded-full 
+                                                             hover:bg-indigo-50 mr-2"
+                                                    title="Edit user"
                                                 >
                                                     <PencilIcon className="h-5 w-5" />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(user.id)}
-                                                    className="text-red-600 hover:text-red-900"
+                                                    className="text-red-600 hover:text-red-900 cursor-pointer 
+                                                             transition-colors duration-200 p-2 rounded-full 
+                                                             hover:bg-red-50"
+                                                    title="Delete user"
                                                 >
                                                     <TrashIcon className="h-5 w-5" />
                                                 </button>
