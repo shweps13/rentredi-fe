@@ -4,6 +4,13 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 import UserForm from './UserForm';
 
+const formatTimezone = (seconds) => {
+    const hours = seconds / 3600;
+    const absoluteHours = Math.abs(hours);
+    const sign = hours < 0 ? '-' : '+';
+    return `UTC${sign}${Math.floor(absoluteHours)}`;
+};
+
 export default function UserList() {
     const [users, setUsers] = useState([]);
     const [editingUser, setEditingUser] = useState(null);
@@ -103,7 +110,7 @@ export default function UserList() {
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.zip}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.latitude}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.longitude}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.timezone}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formatTimezone(user.timezone)}</td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                 <button
                                                     onClick={() => handleEdit(user)}
